@@ -3,6 +3,7 @@ import dotenv
 
 dotenv.load_dotenv()
 
+
 def create_app():
     app = Flask(__name__)
 

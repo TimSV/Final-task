@@ -9,6 +9,7 @@ DB_CONFIG = {
     "port": os.getenv("DB_PORT", 5432)
 }
 
+
 def get_db_connection():
     return psycopg2.connect(**DB_CONFIG)
 

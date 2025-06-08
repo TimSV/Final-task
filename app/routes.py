@@ -3,6 +3,7 @@ from .models import save_user, get_all_users
 
 routes = Blueprint('routes', __name__)
 
+
 @routes.route('/submit', methods=['POST'])
 def submit():
     data = request.get_json()
