@@ -1,0 +1,55 @@
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.pyc~
+*.db
+*.sqlite3
+
+# Virtual environments
+venv/
+env/
+.virtualenvs/
+
+# IDE / Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.installed-files.txt
+ RECORD
+ metadata.json
+ WHEEL
+
+# Docker
+Dockerfile.local
+docker-compose.override.yml
+*.log
+
+# CI/CD
+.jenkins/
+ Jenkinsfile
+*.yml
+*.yaml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
