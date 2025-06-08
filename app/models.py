@@ -12,6 +12,7 @@ DB_CONFIG = {
 def get_db_connection():
     return psycopg2.connect(**DB_CONFIG)
 
+
 def save_user(name: str, score: int):
     try:
         conn = get_db_connection()
