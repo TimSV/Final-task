@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Укажи имя Docker-образа и тег
-        DOCKER_IMAGE_NAME = "your-dockerhub-username/flask-app"
+        DOCKER_IMAGE_NAME = "quartuss/flask-app"
         DOCKER_IMAGE_TAG = "latest"
         DOCKER_REGISTRY_CREDENTIALS_ID = 'docker-hub-credentials' // ID учетных данных в Jenkins
     }
@@ -12,7 +11,7 @@ pipeline {
         // Stage 1: Checkout код из Git
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/yourname/yourrepo.git'
+                git branch: 'main', url: 'https://github.com/TimSV/Final-task.git'
             }
         }
 
