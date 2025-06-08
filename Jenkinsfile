@@ -19,9 +19,11 @@ pipeline {
         stage('Test/Lint') {
             steps {
                 script {
-                    echo 'Запуск flake8 для проверки кода...'
-                    sh 'pip install flake8'
-                    sh 'flake8 . --ignore=E501,E402' // игнорируем длинные строки и импорты сверху
+                    echo 'Запуск flake8 внутри Docker-контейнера'
+                    sh '''
+                        docker build -t flask-app-linter .
+                        docker run --rm flask-app-linter python -m flake8 . --ignore=E501,E402
+                    '''
                 }
             }
         }
