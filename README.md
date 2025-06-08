@@ -44,3 +44,4 @@ curl.exe http://37.9.53.14:5000/results
 # Запись данных в БД через PowerShell
 curl.exe -X POST http://37.9.53.14:5000/submit -H 'Content-Type: application/json' -d '{\"name\":\"Serge\",\"score\":777}'
 ```
+test
