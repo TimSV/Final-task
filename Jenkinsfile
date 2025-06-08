@@ -48,15 +48,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        success {
-            echo 'Сборка успешна!'
-            slackSend channel: '#jenkins', color: 'good', message: '✅ Сборка прошла успешно!'
-        }
-        failure {
-            echo 'Ошибка сборки!'
-            slackSend channel: '#jenkins', color: 'danger', message: '❌ Ошибка сборки!'
-        }
-    }
 }
