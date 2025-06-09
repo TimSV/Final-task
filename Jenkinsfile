@@ -62,13 +62,13 @@ pipeline {
                                 cd /home/ubuntu/flask-app || { echo "Не найдена директория"; exit 1; }
 
                                 echo "Остановка текущего контейнера"
-                                docker-compose down
+                                sudo docker-compose down
 
                                 echo "Обновление образа"
-                                docker-compose pull
+                                sudo docker-compose pull
 
                                 echo "Перезапуск сервиса"
-                                docker-compose up -d
+                                sudo docker-compose up -d
                             ENDSSH
                         """
                     }
