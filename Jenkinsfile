@@ -58,7 +58,7 @@ pipeline {
                         echo "Разворачивание на удалённом сервере"
                         sh """
                             #!/bin/bash
-                            ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} << 'ENDSSH'
+                            ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} << ENDSSH
                                 echo "Переход в папку проекта"
                                 cd /home/ubuntu/flask-app || { echo "Не найдена директория"; exit 1; }
 
