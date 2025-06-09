@@ -4,11 +4,13 @@ pipeline {
     environment {
         DOCKER_IMAGE_NAME = "quartuss/flask-app"
         DOCKER_IMAGE_TAG = "latest"
-        DOCKER_REGISTRY_CREDENTIALS_ID = 'docker-hub-credentials' // ID учетных данных в Jenkins
+        DOCKER_REGISTRY_CREDENTIALS_ID = 'docker-hub-credentials'
+        SSH_CREDENTIALS_ID = "server-ssh-credentials"
+        REMOTE_HOST = "ubuntu@37.9.53.164"
     }
 
+    // Stage 1: Checkout код из Git
     stages {
-        // Stage 1: Checkout код из Git
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/TimSV/Final-task.git'
@@ -20,7 +22,7 @@ pipeline {
             steps {
                 script {
                     echo 'Запуск flake8 для проверки кода...'
-                    sh 'flake8 . --ignore=E501,E402' // игнорируем длинные строки и импорты сверху
+                    sh 'flake8 . --ignore=E501,E402'
                 }
             }
         }
@@ -47,6 +49,34 @@ pipeline {
                 }
             }
         }
+
+        // Stage 5: Деплой на целевой машине
+        stage('Deploy via SSH') {
+            steps {
+                sshagent(credentials: [SSH_CREDENTIALS_ID]) {
+                    script {
+                        echo "Разворачивание на удалённом сервере"
+                        sh """
+                            ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} << 'ENDSSH'
+                                echo "Переход в папку проекта"
+                                cd /home/ubuntu/flask-app || { echo "Не найдена директория"; exit 1; }
+
+                                echo "Остановка текущего контейнера"
+                                docker-compose down
+
+                                echo "Обновление образа"
+                                docker-compose pull
+
+                                echo "Перезапуск сервиса"
+                                docker-compose up -d
+                            ENDSSH
+                        """
+                    }
+                }
+            }
+        }
+
+
     }
 
     post {
