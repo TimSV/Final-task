@@ -40,8 +40,6 @@ dist/
  WHEEL
 
 # Docker
-Dockerfile.local
-docker-compose.override.yml
 *.log
 
 # CI/CD
