@@ -70,7 +70,7 @@ pipeline {
 
                                 echo "Перезапуск сервиса"
                                 sudo docker-compose up -d
-                            ENDSSH
+ENDSSH
                         """
                     }
                 }
