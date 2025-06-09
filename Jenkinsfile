@@ -53,28 +53,27 @@ pipeline {
         // Stage 5: Деплой на целевой машине
         stage('Deploy via SSH') {
             steps {
-                script {
-                    echo "Разворачивание на удалённом сервере"
+                sshagent(credentials: [SSH_CREDENTIALS_ID]) {
+                    script {
+                        echo "Разворачивание на удалённом сервере"
+                        sh """
+                            #!/bin/bash
+                            ssh -o StrictHostKeyChecking=no ${REMOTE_HOST} << 'ENDSSH'
+                                echo "Переход в папку проекта"
+                                cd /home/ubuntu/flask-app || { echo "Не найдена директория"; exit 1; }
 
-                    sshCommand(
-                        hostname: REMOTE_HOST,
-                        credentialsId: SSH_CREDENTIALS_ID,
-                        command: '''
-                            echo "Переход в папку проекта"
-                            cd /home/ubuntu/flask-app || { echo "Не найдена директория"; exit 1; }
+                                echo "Остановка текущего контейнера"
+                                sudo docker-compose down
 
-                            echo "Остановка текущего контейнера"
-                            sudo docker-compose down
+                                echo "Обновление образа"
+                                sudo docker-compose pull
 
-                            echo "Обновление образа"
-                            sudo docker-compose pull
-
-                            echo "Перезапуск сервиса"
-                            sudo docker-compose up -d
-                        '''
-                    )
+                                echo "Перезапуск сервиса"
+                                sudo docker-compose up -d
+                            ENDSSH
+                        """
+                    }
                 }
-
             }
         }
 
