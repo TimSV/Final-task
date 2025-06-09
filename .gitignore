@@ -24,8 +24,6 @@ env/
 *.sql
 *.sqlite
 
-# Environment variables
-
 # Build artifacts
 build/
 dist/
@@ -37,12 +35,6 @@ dist/
 
 # Docker
 *.log
-
-# CI/CD
-.jenkins/
- Jenkinsfile
-*.yml
-*.yaml
 
 # OS generated files
 .DS_Store
