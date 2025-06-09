@@ -53,10 +53,10 @@ pipeline {
         // Stage 5: Деплой на целевой машине
         stage('Deploy via SSH') {
             steps {
-                sshagent(credentials: [SSH_CREDENTIALS_ID]) {
-                    script {
-                        echo "Разворачивание на удалённом сервере"
-                        sshCommand(
+                script {
+                    echo "Разворачивание на удалённом сервере"
+
+                    sshCommand(
                         hostname: REMOTE_HOST,
                         credentialsId: SSH_CREDENTIALS_ID,
                         command: '''
@@ -72,9 +72,9 @@ pipeline {
                             echo "Перезапуск сервиса"
                             sudo docker-compose up -d
                         '''
-                       )
-                    }
+                    )
                 }
+
             }
         }
 
